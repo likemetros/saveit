@@ -8,6 +8,10 @@
 			<p>Password:<input type="text" name="password"/></p>
 			<p><input type="submit" name="reg" value="Register"/></p>
 		</form>
+		<form action="index.php" method="post">
+
+			<p><input type="submit" name="login" value="Get back"/></p>
+		</form>
 	</body>
 </html>
 
@@ -22,6 +26,7 @@ if (isset($_POST["username"]) || isset($_POST["password"])){
 			$uf=fopen("accs/".$_POST["username"].".txt","w");
 			fwrite($uf, $hash=hash('sha256',$_POST["password"]));
 			fclose($uf);
+			echo"You are registered";
 		}
 	}
 }

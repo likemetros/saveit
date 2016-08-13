@@ -22,8 +22,10 @@
 		echo"Please fill both fields";
 	} else {
 		if (file_exists ("accs/".$_POST["username"].".txt")){
-			if($hash=hash('sha256',$_POST["password"]===$pass[0]=file("accs/".$_POST["username"].".txt"))){
-				echo"You are logged in :)";
+			$pass=file("accs/".$_POST["username"].".txt");
+			$hash=hash('sha256',$_POST["password"]);
+			if($hash== $pass[0]){
+				echo"You are logged in";
 			}
 			else{
 				echo"Try your password again";
