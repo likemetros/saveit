@@ -19,7 +19,8 @@ if (isset($_POST["username"]) || isset($_POST["password"])){
 		if (file_exists ("accs/".$_POST["username"].".txt")){
 			echo"Username taken";
 		} else {
-			$uf=fopen("accs/".$_POST["username"].".txt","x+");
+			$uf=fopen("accs/".$_POST["username"].".txt","w");
+			fwrite($uf, $hash=hash('sha256',$_POST["password"]));
 			fclose($uf);
 		}
 	}
