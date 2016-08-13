@@ -12,18 +12,13 @@
 </html>
 
 <?php
-if (isset($_POST["username"])xor isset($_POST["password"])){
-	
-}
-else{
-	if (empty($_POST["username"])or empty($_POST["password"])){
+if (isset($_POST["username"]) || isset($_POST["password"])){
+	if (empty($_POST["username"]) || empty($_POST["password"])){
 		echo"Please fill both fields";
-		}
-	else {
+	} else {
 		if (file_exists ("accs/".$_POST["username"].".txt")){
-				echo"Username taken";
-		}
-		else {
+			echo"Username taken";
+		} else {
 			$uf=fopen("accs/".$_POST["username"].".txt","x+");
 			fclose($uf);
 		}
