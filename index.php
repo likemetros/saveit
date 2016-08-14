@@ -15,7 +15,7 @@ session_start();
 					<p align="right" valign="top"><input type="submit" name="logout" value="Log out"/></p>
 				</form>
 		<?php
-				if ($_POST["logoutbag"]="1"){
+				if ($_POST["logoutbag"]=="1"){
 					session_destroy();
 				}
 			}
