@@ -36,12 +36,20 @@ session_start();
 				$read=file("accs/".$name.".txt");
 				$count=count($read);
 				$i=1;
+				$isFirst=true;
 				foreach($read as $line) {
-					echo $line;
-					if ($i<$count){
+					if ($isFirst==true){
+						$isFirst=false;
+						continue;
+					}
+					else{
+						echo $line;
+						if ($i<$count){
+							echo"\r\n";
+						}
+						$i++;
 						echo"\r\n";
 					}
-					$i++;
 				}
 			?>
 		</td>
