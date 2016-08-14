@@ -22,34 +22,24 @@ session_start();
 		</form>
 		<!--WRITING-->
 		<form method="post">
+			<input type="hidden" name="redcheck" value="2">
 			<p align="left" valign="top"><textarea name="text" rows="15" cols="80"></textarea></p>
 			<p ><input type="submit" name="write" value="Submit text"/></p>
 		</form>
-		<form method="post">
-			<input type="hidden" name="refresh" value="1"/>
-			<p ><input type="submit" name="rfr" value="Refresh"/></p>
-		</form>
 		</td>
-		<td width="60%">
+		<td width="60%" align="left" valign="top" style="padding-top:40px">
 			<p align="left" valign="top"><h2>Preview</h2></p>
 			<?php
 				$read=file("accs/".$name.".txt");
 				$count=count($read);
 				$i=1;
-				$isFirst=true;
+				array_shift($read);
 				foreach($read as $line) {
-					if ($isFirst==true){
-						$isFirst=false;
-						continue;
-					}
-					else{
 						echo $line;
 						if ($i<$count){
-							echo"\r\n";
+							echo"<br>";
 						}
 						$i++;
-						echo"\r\n";
-					}
 				}
 			?>
 		</td>
@@ -58,13 +48,24 @@ session_start();
 <?php
 		if ($_POST["logoutbag"]=="1"){
 			session_destroy();
+			?>
+				<script>window.location.href = window.location.href;</script>
+			<?php
 		}
-		if ($_POST["rfr"]=="1"){
-			header("Refresh:0");
+		if ($_POST["redcheck"]=="2"){
+			if (!empty($_POST["text"])){
+				echo"\r\n";
+				$wf=fopen("accs/".$name.".txt","a");
+				fwrite($wf,$_POST["text"]);
+				fclose($wf);
+				?>
+					<script>window.location.href = window.location.href;</script>
+				<?php
+			}
+			else{
+				echo"Please write something";
+			}
 		}
-		$wf=fopen("accs/".$name.".txt","a");
-		fwrite($wf,"\r\n".$_POST["text"]);
-		fclose($wf);
 	} else {
 ?>
 		<div>
@@ -88,6 +89,9 @@ session_start();
 					if($hash== $pass[0]){
 						echo"You are logged in";
 						$_SESSION["username"]=$_POST["username"];
+						?>
+							<script>window.location.href = window.location.href;</script>
+						<?php
 					} else {
 						echo"Try your password again";
 					}
